@@ -9,6 +9,7 @@ public class TodasLasPruebas {
         PruebaRepartidor.ejecutar();
         PruebaComparadores.ejecutar();
         // Etapa 2
+        PruebaHistorial.ejecutar();
         // Etapa 3
         // Etapa 4
         Prueba.resumen();
