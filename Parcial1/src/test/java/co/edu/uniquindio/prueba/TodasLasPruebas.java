@@ -16,8 +16,10 @@ public class TodasLasPruebas {
         PruebaGestorRepartidores.ejecutar();
         // Etapa 3
         PruebaRegistroPaquetes.ejecutar();
+        PruebaGestorDespacho.ejecutar();
         // Etapa 4
         Prueba.resumen();
+
     }
 }
 
