@@ -4,47 +4,47 @@ Sistema desarrollado en Java para gestionar y optimizar las operaciones de distr
 
 La aplicación está orientada a la gestión de paquetes durante las diferentes etapas del proceso logístico, desde su recepción y registro hasta su clasificación, priorización, asignación a repartidores y entrega.
 
-##  Objetivo del proyecto
+## Objetivo del proyecto
 
 Desarrollar una aplicación que permita administrar las operaciones de un centro de distribución mediante el uso de estructuras de datos, algoritmos de búsqueda, técnicas recursivas y estrategias de organización de información.
 
 ### Funcionalidades principales
 
--  **Recepción y registro:** gestionar el ingreso de paquetes al sistema.
--  **Clasificación:** organizar los paquetes según sus características.
--  **Priorización:** establecer el orden de atención de los paquetes según su nivel de prioridad.
--  **Búsqueda:** localizar paquetes mediante los algoritmos implementados.
--  **Asignación:** gestionar la asignación de paquetes a los repartidores.
--  **Gestión de entregas:** administrar el proceso de entrega de los paquetes.
--  **Pruebas:** verificar el funcionamiento de las funcionalidades mediante casos de prueba ejecutables.
+- **Recepción y registro:** gestionar el ingreso de paquetes al sistema.
+- **Clasificación:** organizar los paquetes según sus características.
+- **Priorización:** establecer el orden de atención de los paquetes según su nivel de prioridad.
+- **Búsqueda:** localizar paquetes mediante los algoritmos implementados.
+- **Asignación:** gestionar la asignación de paquetes a los repartidores.
+- **Gestión de entregas:** administrar el proceso de entrega de los paquetes.
+- **Pruebas:** verificar el funcionamiento de las funcionalidades mediante casos de prueba ejecutables.
 
-##  Integrantes del equipo
+## Integrantes del equipo
 
 | Integrante |
 |---|
-| Jose Gabriel Paguay Imbacuan |
-| Natalia Estefany Burbano|
-| Juan Manuel Mejia|
+| Jose Gabriel Paguay |
+| Natalia Estefany Burbano |
+| Juan Manuel Mejia |
 
-##  Tecnologías y herramientas
+## Tecnologías y herramientas
 
 | Tecnología | Uso |
 |---|---|
-| Java 17 | Lenguaje de programación |
+| Java 17 o superior | Lenguaje de programación |
 | Apache Maven | Gestión del proyecto y compilación |
 | IntelliJ IDEA | Entorno de desarrollo recomendado |
 | Git y GitHub | Control de versiones y colaboración |
 | `Prueba` | Clase auxiliar personalizada para las verificaciones |
-| `TodasLasPruebas` | Ejecutor del conjunto de pruebas |
+| `TodasLasPruebas` | Ejecutor del conjunto de pruebas (incluye `PruebaIntegral`, que prueba todo el sistema junto) |
 
 > **Nota:** Las pruebas utilizan un mecanismo personalizado de verificación, sin depender de JUnit.
 
-##  Estructura del proyecto
+## Estructura del proyecto
 
 La organización del código sigue una separación por responsabilidades:
 
 ```text
-QuindioExpress/
+ParcialUno/
 ├── src/
 │   ├── main/
 │   │   └── java/
@@ -69,7 +69,7 @@ QuindioExpress/
 └── README.md                               # Documentación del proyecto
 ```
 
-##  Requisitos previos
+## Requisitos previos
 
 Antes de ejecutar el proyecto, asegúrate de contar con:
 
@@ -87,7 +87,7 @@ mvn -version
 
 Asegúrate de que Java utilice una versión compatible con los requisitos del proyecto.
 
-##  Instalación y ejecución
+## Instalación y ejecución
 
 ### 1. Obtener el proyecto
 
@@ -119,16 +119,7 @@ mvn compile
 
 **Opción B: Terminal**
 
-Primero, compila el proyecto y después ejecuta la clase principal.
-
-**Windows:**
-
-```bash
-mvn compile
-java -cp "target/classes" co.edu.uniquindio.app.Main
-```
-
-**macOS / Linux:**
+Primero compila el proyecto y después ejecuta la clase principal. El comando es el mismo en Windows, macOS y Linux:
 
 ```bash
 mvn compile
@@ -165,26 +156,32 @@ java -cp "target/classes;target/test-classes" co.edu.uniquindio.prueba.TodasLasP
 java -cp "target/classes:target/test-classes" co.edu.uniquindio.prueba.TodasLasPruebas
 ```
 
+Al final se muestra el total de verificaciones correctas y fallidas. Si hubo alguna falla, el programa termina con código 1.
+
 > **Importante:** Como el proyecto utiliza un ejecutor de pruebas personalizado y no JUnit, `mvn test` no necesariamente ejecutará estas pruebas automáticamente. Para ejecutarlas, utiliza `TodasLasPruebas` como se indica anteriormente, salvo que se haya configurado Maven para invocarlas.
 
-##  Estructuras de datos y algoritmos
+## Estructuras de datos y algoritmos
 
 El proyecto contempla el uso de los siguientes conceptos de Estructuras de Datos:
 
-- **Listas simplemente enlazadas:** administración de colecciones mediante nodos.
-- **Interfaces genéricas:** definición de operaciones reutilizables para diferentes tipos de datos.
-- **Comparadores (`Comparator`):** establecimiento de criterios de ordenamiento para los paquetes.
-- **Recursividad:** resolución de operaciones mediante llamadas recursivas.
-- **Búsqueda binaria:** localización de elementos en colecciones previamente ordenadas.
-- **Divide y vencerás (D&C):** resolución de problemas mediante su división en subproblemas.
+| Concepto | Dónde se usa |
+|---|---|
+| Lista simplemente enlazada propia, `Iterable` e `Iterator` | `estructuras/ListaSimplementeEnlazada`, usada en `servicio/HistorialEntregas` |
+| Interfaz genérica | `estructuras/ColeccionGenerica<T>` |
+| `ArrayList`, `HashMap`, `HashSet`, `TreeSet` | `servicio/RegistroPaquetes`: orden de registro, búsqueda por código, municipios únicos y ordenados, agrupación por municipio |
+| `Queue` y `PriorityQueue` | `servicio/GestorDespacho`: atención por orden de llegada y despacho por prioridad |
+| `Map` | `servicio/GestorRepartidores`: repartidores por identificación y asignaciones |
+| `Comparable` | `modelo/Paquete`: orden natural por código |
+| `Comparator` | `comparadores/ComparadoresPaquete`: prioridad, peso, tiempo estimado y despacho |
+| Recursividad | `algoritmos/AnalisisRecursivo`: peso total por municipio y conteo por prioridad |
+| Búsqueda binaria | `algoritmos/BusquedaBinaria`: requiere que la lista esté ordenada por código |
+| Divide y vencerás (D&C) | `algoritmos/DivideYVenceras`: paquete de mayor peso |
 
-La implementación concreta y el uso de cada algoritmo dependen de las clases y operaciones desarrolladas en el proyecto.
+## Reglas de dominio: prioridad de los paquetes
 
-##  Reglas de dominio: prioridad de los paquetes
+El rango de prioridad está pendiente de confirmación con el profesor: el enunciado indica valores entre **0 y 5** en la descripción del atributo y entre **1 y 5** en las reglas de funcionamiento.
 
-El rango de prioridad está pendiente de confirmación definitiva con el profesor, ya que el enunciado presenta referencias a dos escalas diferentes: de **0 a 10** y de **1 a 5**.
-
-Mientras se confirma la regla oficial, el proyecto utiliza la escala de **1 a 5**, con la siguiente interpretación:
+Mientras se confirma, el proyecto utiliza la escala de **1 a 5**, con la siguiente interpretación:
 
 | Prioridad | Interpretación |
 |---:|---|
@@ -194,4 +191,4 @@ Mientras se confirma la regla oficial, el proyecto utiliza la escala de **1 a 5*
 | 4 | Prioridad alta |
 | 5 | Prioridad más alta |
 
-Estos valores se gestionan mediante constantes definidas en la clase `Paquete`, con el objetivo de centralizar las reglas de prioridad
+Estos valores se gestionan mediante constantes definidas en la clase `Paquete` (`PRIORIDAD_MINIMA`, `PRIORIDAD_MAXIMA` y `PRIORIDAD_POR_DEFECTO`), con el objetivo de centralizar las reglas de prioridad: si el profesor cambia el rango, solo se modifica en ese lugar.
