@@ -17,7 +17,9 @@ public class TodasLasPruebas {
         // Etapa 3
         PruebaRegistroPaquetes.ejecutar();
         PruebaGestorDespacho.ejecutar();
+        PruebaDatosIniciales.ejecutar();
         // Etapa 4
+        PruebaCentroDistribucion.ejecutar();
         Prueba.resumen();
 
     }
