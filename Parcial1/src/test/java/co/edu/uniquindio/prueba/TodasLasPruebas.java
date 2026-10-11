@@ -20,6 +20,7 @@ public class TodasLasPruebas {
         PruebaDatosIniciales.ejecutar();
         // Etapa 4
         PruebaCentroDistribucion.ejecutar();
+        PruebaIntegral.ejecutar();
         Prueba.resumen();
 
     }
