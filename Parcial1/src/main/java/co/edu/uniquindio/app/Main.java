@@ -15,7 +15,13 @@ import java.util.List;
  */
 public class Main {
 
+    /** El programa arranca con el menu. */
     public static void main(String[] args) {
+        Menu.iniciar();
+    }
+
+    /** Muestra todas las secciones seguidas, como antes (opcion 11 del menu). */
+    public static void demoCompleta() {
         CentroDistribucion centro = new CentroDistribucion();
 
         // Aqui guardamos los paquetes que van saliendo a ruta, para entregarlos al final
@@ -39,7 +45,7 @@ public class Main {
     }
 
     /** 1. Registra todos los repartidores y paquetes de DatosIniciales. */
-    private static void cargarDatos(CentroDistribucion centro) {
+    static void cargarDatos(CentroDistribucion centro) {
         titulo("1. Cargar datos");
         for (Repartidor repartidor : DatosIniciales.crearRepartidores()) {
             centro.registrarRepartidor(repartidor);
@@ -52,7 +58,7 @@ public class Main {
     }
 
     /** 2. Muestra que el sistema rechaza datos invalidos o repetidos. */
-    private static void mostrarValidaciones(CentroDistribucion centro) {
+    static void mostrarValidaciones(CentroDistribucion centro) {
         titulo("2. Validaciones rechazadas");
 
         try {
@@ -80,7 +86,7 @@ public class Main {
     }
 
     /** 3. Muestra los paquetes en el orden en que llegaron. */
-    private static void mostrarOrdenDeRegistro(CentroDistribucion centro) {
+    static void mostrarOrdenDeRegistro(CentroDistribucion centro) {
         titulo("3. Paquetes en orden de registro");
         int numero = 1;
         for (Paquete paquete : centro.paquetesEnOrdenDeRegistro()) {
@@ -90,21 +96,21 @@ public class Main {
     }
 
     /** 4. Busca un paquete que existe y uno que no. */
-    private static void mostrarConsultaPorCodigo(CentroDistribucion centro) {
+    static void mostrarConsultaPorCodigo(CentroDistribucion centro) {
         titulo("4. Consulta por codigo");
         System.out.println("Buscar PQ318: " + centro.buscarPaquete("PQ318"));
         System.out.println("Buscar PQ000: " + centro.buscarPaquete("PQ000"));
     }
 
     /** 5. Muestra los municipios sin repetir y en orden alfabetico. */
-    private static void mostrarMunicipios(CentroDistribucion centro) {
+    static void mostrarMunicipios(CentroDistribucion centro) {
         titulo("5. Municipios");
         System.out.println("Sin repetir: " + centro.municipios());
         System.out.println("Ordenados: " + centro.municipiosOrdenados());
     }
 
     /** 6. Muestra los paquetes de cada municipio. */
-    private static void mostrarAgrupacion(CentroDistribucion centro) {
+    static void mostrarAgrupacion(CentroDistribucion centro) {
         titulo("6. Paquetes agrupados por municipio");
         for (String municipio : centro.municipiosOrdenados()) {
             List<Paquete> paquetes = centro.agrupacionPorMunicipio().get(municipio);
@@ -117,7 +123,7 @@ public class Main {
     }
 
     /** 7. Ordena por prioridad, peso y tiempo, y muestra que el registro no cambio. */
-    private static void mostrarOrdenamientos(CentroDistribucion centro) {
+    static void mostrarOrdenamientos(CentroDistribucion centro) {
         titulo("7. Ordenamientos");
         System.out.println("Primeros 5 por prioridad (mayor primero):");
         mostrarPrimeros(centro.ordenarPor(ComparadoresPaquete.POR_PRIORIDAD_DESC), 5);
@@ -130,7 +136,7 @@ public class Main {
     }
 
     /** 8. Usa los metodos recursivos. */
-    private static void mostrarRecursion(CentroDistribucion centro) {
+    static void mostrarRecursion(CentroDistribucion centro) {
         titulo("8. Recursion");
         // Se redondea a un decimal para que no salga 45.10000000000001
         double pesoArmenia = Math.round(centro.pesoTotalPorMunicipio("Armenia") * 10) / 10.0;
@@ -139,14 +145,14 @@ public class Main {
     }
 
     /** 9. Busca por codigo con busqueda binaria. */
-    private static void mostrarBusquedaBinaria(CentroDistribucion centro) {
+    static void mostrarBusquedaBinaria(CentroDistribucion centro) {
         titulo("9. Busqueda binaria");
         System.out.println("Buscar PQ583: " + centro.buscarPorCodigoBinaria("PQ583"));
         System.out.println("Buscar PQ000: " + centro.buscarPorCodigoBinaria("PQ000"));
     }
 
     /** 10. Encuentra el paquete mas pesado con divide y venceras. */
-    private static void mostrarDivideYVenceras(CentroDistribucion centro) {
+    static void mostrarDivideYVenceras(CentroDistribucion centro) {
         titulo("10. Divide y venceras");
         System.out.println("Paquete mas pesado: " + centro.paqueteMasPesado());
     }
@@ -173,7 +179,7 @@ public class Main {
     }
 
     /** 13. Intenta asignar a un repartidor no disponible y a uno de otra zona. */
-    private static void mostrarAsignacionesRechazadas(CentroDistribucion centro) {
+    static void mostrarAsignacionesRechazadas(CentroDistribucion centro) {
         titulo("13. Asignaciones rechazadas");
 
         try {
@@ -217,7 +223,7 @@ public class Main {
     }
 
     // Imprime el titulo de cada seccion
-    private static void titulo(String texto) {
+    static void titulo(String texto) {
         System.out.println();
         System.out.println("=== " + texto + " ===");
     }
